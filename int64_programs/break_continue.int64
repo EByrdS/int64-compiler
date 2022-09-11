@@ -1,0 +1,42 @@
+/* File: break_continue.int64
+ * Verifies that the implementation of break and continue meet the specified
+ * requirements.
+ * (C) 2017 Ariel Ortiz, ITESM CEM
+ */
+
+main() {
+    var array, sum, element, i;
+    array = { 2, 12, 20, 19,  5,
+              8, 16,  0, 23, 11,
+             17, 13, 18, 22, 10,
+             -1,  6, 21,  1,  3,
+              4, 14,  7,  9, 15};
+    sum = 0;
+    for (element in array) {
+        if (element == -1) {
+            break;
+        }
+        if (element <= 2) {
+            continue;
+        }
+        i = 1;
+        while (true) {
+            i = i + 1;
+            if (i > element) {
+                break;
+            } 
+            if (element == i) {
+                sum = sum + element;
+                continue;
+            } 
+            if (element % i == 0) {
+                break;
+            }
+        }
+    }
+    if (sum == 88) {
+        prints("The program works fine!\n");
+    } else {
+        prints("This program sucks!\n");
+    }
+}

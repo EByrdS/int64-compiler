@@ -1,0 +1,52 @@
+/* File: factorial.int64
+ * Computes factorials using iteration and recursion.
+ * (C) 2017 Ariel Ortiz, ITESM CEM
+ */
+
+// Iterative version for computing factorial of n.
+iterative_factorial(n) {
+    var result, i;
+    result = 1;
+    for (i in range(2, n + 1)) {
+        result = result * i;
+    }
+    return result;
+}
+
+// Returns a handle to an array list containing
+// consecutive integers from start up to end - 1.
+range(start, end) {
+    var result;
+    result = new(0);
+    while (start < end) {
+        add(result, start);
+        start = start + 1;
+    }
+    return result;
+}
+
+// Recursive version for computing factorial of n.
+recursive_factorial(n) {
+    return n <= 0 ? 1 : n * recursive_factorial(n - 1);
+}
+
+main() {
+    var num, option;
+    do {
+        prints("Input a number: ");
+        num = readi();
+        prints("Iterative factorial: ");
+        printi(iterative_factorial(num));
+        println();
+        prints("Recursive factorial: ");
+        printi(recursive_factorial(num));
+        println();
+        prints("Compute another factorial? ");
+        option = reads();
+        if (size(option) == 0) {
+            option = 'N';
+        } else {
+            option = get(option, 0);
+        }
+    } while (option == 'Y' || option == 'y');
+}

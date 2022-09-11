@@ -1,0 +1,38 @@
+/* File: vars.int64
+ * Example using global and local variables.
+ * (C) 2017 Ariel Ortiz, ITESM CEM
+ */
+
+var a;
+
+x(b) {
+    var c;
+    c = 5;
+    prints("Function x\n");
+    printi(a);
+    println();
+    printi(b);
+    println();
+    printi(c);
+    println();
+}
+
+var b, c;
+
+main() {
+    var x;
+    a = 1;
+    b = 2;
+    c = 3;
+    x = 4;
+    x(x);
+    prints("Function main\n");
+    printi(a);
+    println();
+    printi(b);
+    println();
+    printi(c);
+    println();
+    printi(x);
+    println();
+}

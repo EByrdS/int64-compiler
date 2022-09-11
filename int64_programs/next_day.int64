@@ -1,0 +1,83 @@
+/* File: next_day.int64
+ * Given the date of a certain day, determines the date of the day after.
+ * (C) 2017 Ariel Ortiz, ITESM CEM
+ */
+ 
+// Returns true if y is a leap year, otherwise returns false.
+is_leap_year(y) {
+    if (y % 4 == 0) {
+        if (y % 100 == 0) {
+            if (y % 400 == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+ }
+
+// Returns the total number of days in month m of year y.
+number_of_days_in_month(y, m) {
+    var result;
+    switch (m) {
+    case 2:
+        result = is_leap_year(y) ? 29 : 28;
+    case 1, 3, 5, 7, 8, 10, 12:
+        result = 31;
+    default:
+        result = 30;
+    }
+    return result;
+}
+
+// Given y, m, d (year, month day), returns the handle of a new array list
+// with the date of the following day.
+next_day(y, m, d) {
+    var result;
+    result = new(3);
+    if (d == number_of_days_in_month(y, m)) {
+        if (m == 12) {
+            set(result, 0, y + 1);
+            set(result, 1, 1);
+        } else {
+            set(result, 0, y);
+            set(result, 1, m + 1);
+        }
+        set(result, 2, 1);
+    } else {
+        set(result, 0, y);
+        set(result, 1, m);
+        set(result, 2, d + 1);
+    }
+    return result;
+}
+
+// Prints the given date (y, m, d) and the date of the following day.
+print_next_day(y, m, d) {
+    var next;
+    prints("The day after ");
+    printi(y);
+    printc('/');
+    printi(m);
+    printc('/');
+    printi(d);
+    prints(" is ");
+    next = next_day(y, m, d);
+    printi(get(next, 0));
+    printc('/');
+    printi(get(next, 1));
+    printc('/');
+    printi(get(next, 2));
+    println();
+}
+
+main() {
+    print_next_day(2017, 2, 21);
+    print_next_day(2017, 2, 28);
+    print_next_day(2016, 2, 28);
+    print_next_day(2016, 12, 31);
+}

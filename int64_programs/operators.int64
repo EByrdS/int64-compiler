@@ -1,0 +1,132 @@
+/* File: operators.int64
+ * Verifies that the implementation of all the operators
+ * meet the specified requirements.
+ * (C) 2017 Ariel Ortiz, ITESM CEM
+ */
+
+var fails;
+var asserts;
+
+assert(value1, value2, message) {
+    asserts = asserts + 1;
+    if (value1 != value2) {
+        fails = fails + 1;
+        prints("Assertion failure: ");
+        prints(message);
+        println();
+    }
+}
+
+// By default a function returns 0. 
+some_fun() {
+}
+
+main() {
+
+    fails = 0;
+    asserts = 0;
+
+    assert(-0, 0, "error in unary minus");
+    assert(-5, - - - 5, "error in unary minus");
+    assert(7, - - 7, "error in unary minus");
+
+    assert(0, +0, "error in unary plus");
+    assert(5, + + + 5, "error in unary plus");
+    assert(7, + + 7, "error in unary plus");
+
+    assert(1, 42 ** 0, "error in power");
+    assert(512, 2 ** 3 ** 2, "error in power");
+    assert(1099511627776, 2 ** 40, "error in power");
+    assert(-762939453125, -5 ** 17, "error in power");
+
+    assert(0, 42 * 0, "error in multiplication");
+    assert(42, 6 * 7, "error in multiplication");
+    assert(42, -6 * -7, "error in multiplication");
+    assert(-42, 6 * -7, "error in multiplication");
+
+    assert(0, 1 / 2, "error in division");
+    assert(6, 20 / 3, "error in division");
+    assert(-6, -20 / 3, "error in division");
+    assert(6, -20 / -3, "error in division");
+
+    assert(2, 20 % 3, "error in remainder");
+    assert(-2, -20 % 3, "error in remainder");
+    assert(-2, -20 % -3, "error in remainder");
+
+    assert(42, 22 + 20, "error in addition");
+    assert(2, 22 + -20, "error in addition");
+    assert(-42, -22 + -20, "error in addition");
+
+    assert(42, 80 - 38, "error in substraction");
+    assert(-118, -80 - 38, "error in substraction");
+    assert(-42, -80 - -38, "error in substraction");
+
+    assert(-1, ~0, "error in bitwise NOT");
+    assert(-2, ~1, "error in bitwise NOT");
+    assert(-43, ~42, "error in bitwise NOT");
+    assert(41, ~-42, "error in bitwise NOT");
+
+    assert(0, 5 & 2, "error in bitwise AND");
+    assert(42, 106 & 63, "error in bitwise AND");
+    assert(-4, -3 & -2, "error in bitwise AND");
+    assert(1, -11 & 11, "error in bitwise AND");
+
+    assert(7, 5 | 2, "error in bitwise OR");
+    assert(127, 106 | 63, "error in bitwise OR");
+    assert(-1, -3 | -2, "error in bitwise OR");
+    assert(0, 0 | 0, "error in bitwise OR");
+
+    assert(16, 1 << 4, "error in bitwise shift left");
+    assert(-70368744177664, -16 << 42, "error in bitwise shift left");
+    assert(-9223372036854775808, 5 << -1, "error in bitwise shift left");
+    assert(-9223372036854775808, 5 << 63, "error in bitwise shift left");
+
+    assert(42, 168 >> 2, "error in bitwise shift left");
+    assert(-42, -168 >> 2, "error in bitwise shift left");
+    assert(1, 0x7FFFFFFFFFFFFFFF >> 62, "error in bitwise shift left");
+    assert(1, 0x7FFFFFFFFFFFFFFF >> -2, "error in bitwise shift left");
+
+    assert(42, 168 >>> 2, "error in bitwise unsigned shift left");
+    assert(4611686018427387862, -168 >>> 2, "error in bitwise unsigned shift left");
+    assert(1, 0x8000000000000000 >>> 63, "error in bitwise unsigned shift left");
+    assert(1, 0x8000000000000000 >>> -1, "error in bitwise unsigned shift left");
+
+    assert(0, !true, "error in logical NOT");
+    assert(1, !false, "error in logical NOT");
+    assert(0, !!!true, "error in logical NOT");
+
+    assert(0, false && false, "error in logical AND");
+    assert(0, true && false, "error in logical AND");
+    assert(0, false && true, "error in logical AND");
+    assert(1, true && true, "error in logical AND");
+
+    assert(0, false || false, "error in logical OR");
+    assert(1, true || false, "error in logical OR");
+    assert(1, false || true, "error in logical OR");
+    assert(1, true || true, "error in logical OR");
+
+    assert(1, 42 == 42, "error in equal to");
+    assert(0, 42 == 43, "error in equal to");
+    assert(1, 42 != 43, "error in not equal to");
+    assert(0, 42 != 42, "error in not equal to");
+    assert(1, 43 > 42, "error in greater than");
+    assert(0, 42 > 42, "error in greater than");
+    assert(1, 42 < 43, "error in less than");
+    assert(0, 42 < 42, "error in less than");
+    assert(1, 43 >= 42, "error in greater or equal");
+    assert(1, 42 >= 42, "error in greater or equal");
+    assert(0, 42 >= 43, "error in greater or equal");
+    assert(1, 42 <= 43, "error in less or equal");
+    assert(1, 42 <= 42, "error in less or equal");
+    assert(0, 43 <= 42, "error in less or equal");
+
+    assert(0, some_fun(), "error in function call");
+    
+    assert(42, true ? 42 : 43, "error in ternary conditional");
+    assert(43, false ? 42 : 43, "error in ternary conditional");
+    
+    printi(fails);
+    prints(" failure(s) found in ");
+    printi(asserts);
+    prints(" assertion(s).\n");
+}

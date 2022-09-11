@@ -1,0 +1,8 @@
+/* File: hello.int64
+ * Prints "Hello World!" to the stdout.
+ * (C) 2017 Ariel Ortiz, ITESM CEM
+ */
+
+main() {
+    prints("Hello World\n");
+}
